@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.antonio.algafood.domain.model.Estado;
+import com.antonio.algafood.domain.exception.CozinhaNaoEncontradaException;
+import com.antonio.algafood.domain.exception.NegocioException;
 import com.antonio.algafood.domain.model.Restaurante;
 import com.antonio.algafood.domain.repository.RestauranteRepository;
 import com.antonio.algafood.domain.service.CadastroRestauranteService;
@@ -28,7 +29,6 @@ public class RestauranteController {
 	
 	@Autowired
 	private CadastroRestauranteService cadastroRestaurante;
-	
 	
 	// MÉTODO LISTAR
 	@GetMapping
@@ -46,16 +46,26 @@ public class RestauranteController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Restaurante adicionar(@RequestBody Restaurante restaurante) {
-		return cadastroRestaurante.salvar(restaurante);
+		try {
+			return cadastroRestaurante.salvar(restaurante);
+		} catch (CozinhaNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 	//MÉTODO ATUALIZAR
 	@PutMapping("/{restauranteId}")
 	public Restaurante atualizar(@PathVariable Long restauranteId,
-			@RequestBody Estado estado) {
-		Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(restauranteId);
-		BeanUtils.copyProperties(estado, restauranteAtual, "id");
-		return cadastroRestaurante.salvar(restauranteAtual);
+			@RequestBody Restaurante restaurante) {
+		try {
+			Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(restauranteId);
+			BeanUtils.copyProperties(restaurante, restauranteAtual, 
+					"id", "formaPagamentos", "endereco", "dataCadastro", "produtos");
+
+			return cadastroRestaurante.salvar(restauranteAtual);
+		} catch (CozinhaNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 //	@PatchMapping("/{restauranteId}")

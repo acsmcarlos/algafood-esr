@@ -6,7 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.antonio.algafood.domain.exception.EntidadeEmUsoException;
-import com.antonio.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.antonio.algafood.domain.exception.NegocioException;
 import com.antonio.algafood.domain.model.Permissao;
 import com.antonio.algafood.domain.repository.PermissaoRepository;
 
@@ -26,7 +26,7 @@ public class CadastroPermissaoService {
 			permissaoRepository.deleteById(permissaoId);
 			
 		} catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(
+			throw new NegocioException(
 					String.format("Não existe um cadastro de permissao com código %d", permissaoId));
 		
 		} catch (DataIntegrityViolationException e) {
