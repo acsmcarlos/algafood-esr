@@ -16,8 +16,6 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.antonio.algafood.domain.ENUM.StatusPedido;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

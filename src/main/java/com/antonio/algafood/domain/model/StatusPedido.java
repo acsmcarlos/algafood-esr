@@ -1,4 +1,4 @@
-package com.antonio.algafood.domain.ENUM;
+package com.antonio.algafood.domain.model;
 
 public enum StatusPedido {
 	

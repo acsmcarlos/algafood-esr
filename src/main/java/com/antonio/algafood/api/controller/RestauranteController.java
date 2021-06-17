@@ -50,6 +50,9 @@ public class RestauranteController {
 	//MÉTODO BUSCAR POR ID
 		@GetMapping("/{restauranteId}")
 		public Restaurante buscar(@PathVariable Long restauranteId) {
+//			if(true) {
+//				throw new IllegalArgumentException("teste"); ERRO_NO_SISTEMA
+//			}
 			return cadastroRestaurante.buscarOuFalhar(restauranteId);
 		}
 	
