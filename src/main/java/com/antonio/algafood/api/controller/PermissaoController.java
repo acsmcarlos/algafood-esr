@@ -3,6 +3,8 @@ package com.antonio.algafood.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,14 +56,14 @@ public class PermissaoController {
 	//MÉTODO ADICIONAR
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Permissao adicionar(@RequestBody Permissao permissao) {
+	public Permissao adicionar(@RequestBody @Valid Permissao permissao) {
 		return cadastroPermissao.salvar(permissao);
 	}
 	
 	//MÉTODO ATUALIZAR
 	@PutMapping("/{permissaoId}")
 	public ResponseEntity<?> atualizar(@PathVariable Long permissaoId,
-			@RequestBody Permissao permissao) {
+			@RequestBody @Valid Permissao permissao) {
 		try {
 			Optional<Permissao> permissaoAtual = permissaoRepository.findById(permissaoId);
 			
