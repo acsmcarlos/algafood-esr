@@ -34,8 +34,8 @@ public class Cidade {
 	
 	@Valid
 	@NotNull
-	@ConvertGroup(from = Default.class, to = Groups.EstadoId.class)
     @ManyToOne
     @JoinColumn(nullable = false)
+	@ConvertGroup(from = Default.class, to = Groups.EstadoId.class)
     private Estado estado;
 }

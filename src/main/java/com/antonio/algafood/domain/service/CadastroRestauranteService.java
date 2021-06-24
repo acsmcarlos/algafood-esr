@@ -2,6 +2,7 @@ package com.antonio.algafood.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.antonio.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.antonio.algafood.domain.model.Cozinha;
@@ -19,6 +20,7 @@ public class CadastroRestauranteService {
 	
 	
 	//MÉTODO SALVAR 
+	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId(); //fazer uma consulta de cozinha, se ela existe
 		
